@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://pupti.github.io/sitemap.xml

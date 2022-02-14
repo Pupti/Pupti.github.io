@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ClickHouse存储（三） - Pupti</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="Pantiing" />
+  <meta name="description" content="本文主要内容包括 clickhouse数据存储方式 分片和分区 每列单独存储 分区合并 TTL 多磁盘存储策略 JBOD存储策略 HOT/COLD存储策略 列式存" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.2" />
+
+
+<link rel="canonical" href="https://pupti.github.io/post/2021/clickhouse3_%E5%AD%98%E5%82%A8/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.fa4b2b9f31b5c6d0b683db81157a9226e17b06e61911791ab547242a4a0556f2.css" integrity="sha256-&#43;ksrnzG1xtC2g9uBFXqSJuF7BuYZEXkatUckKkoFVvI=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="ClickHouse存储（三）" />
+<meta property="og:description" content="本文主要内容包括 clickhouse数据存储方式 分片和分区 每列单独存储 分区合并 TTL 多磁盘存储策略 JBOD存储策略 HOT/COLD存储策略 列式存" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pupti.github.io/post/2021/clickhouse3_%E5%AD%98%E5%82%A8/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-05-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-05-08T00:00:00+00:00" />
+
+<meta itemprop="name" content="ClickHouse存储（三）">
+<meta itemprop="description" content="本文主要内容包括 clickhouse数据存储方式 分片和分区 每列单独存储 分区合并 TTL 多磁盘存储策略 JBOD存储策略 HOT/COLD存储策略 列式存"><meta itemprop="datePublished" content="2021-05-08T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-05-08T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1497">
+<meta itemprop="keywords" content="ClickHouse," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ClickHouse存储（三）"/>
+<meta name="twitter:description" content="本文主要内容包括 clickhouse数据存储方式 分片和分区 每列单独存储 分区合并 TTL 多磁盘存储策略 JBOD存储策略 HOT/COLD存储策略 列式存"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Pupti</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/post/">归档</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/about/">关于</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      Pupti
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://pupti.github.io/about/">关于</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">ClickHouse存储（三）</h1>
+      
+      <div class="post-meta">
+        <time datetime="2021-05-08" class="post-time">
+          2021-05-08
+        </time>
+        <div class="post-category">
+            <a href="https://pupti.github.io/categories/clickhouse/"> ClickHouse </a>
+            
+          </div>
+        <span class="more-meta"> 约 1497 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#列式存储方式">列式存储方式</a></li>
+    <li><a href="#多磁盘存储策略">多磁盘存储策略</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p><strong>本文主要内容包括</strong></p>
+<ol>
+<li>clickhouse数据存储方式
+<ol>
+<li>分片和分区</li>
+<li>每列单独存储</li>
+<li>分区合并</li>
+<li>TTL</li>
+</ol>
+</li>
+<li>多磁盘存储策略
+<ol>
+<li>JBOD存储策略</li>
+<li>HOT/COLD存储策略</li>
+</ol>
+</li>
+</ol>
+<h2 id="列式存储方式">列式存储方式</h2>
+<p><strong>列式存储的好处：</strong></p>
+<ol>
+<li>在查询时减少扫描的数据量：对于大宽表的存储，往往只对其中的几列查询率高，如果是行式存储，会造成对其他行不必要的扫描。按列存储只需要扫描对应的列即可</li>
+<li>数据压缩率高：压缩的本质是数据中重复项越多，压缩率越高，数据体量越小，数据体量小，则对网络的压力小，则对带宽和磁盘压力小。(同一列的数据重复项较多），解压缩的速度主要取决于未压缩数据的大小
+每列数据被存储在<code>.bin</code>后缀中，数据根据压缩（可以自行选择压缩算法），按照<code>ORDER BY</code>排序，以压缩数据块的形式被组织写入<code> .bin</code>文件中。</li>
+</ol>
+<p>压缩数据块由头信息和压缩数据组成，头信息有压缩算法、压缩前和压缩后数据大小。每个数据块大小是<code>64KB ～ 1MB</code>，最终大小和索引粒度<code>index_granularity</code>相关。</p>
+<p>如果一批数据小于<code>64KB</code>，则等待下一批数据，直到<code>64KB</code>；如果在<code>64KB ～ 1MB</code>之间，则直接生产下一个压缩数据块；如果大于<code>1MB</code>，先按照<code>1MB</code>截断，再生成下一个压缩数据块。</p>
+<p>在读取时，将压缩数据块加载到内存中解压，再进行后续操作。虽然压缩时降低存储空间，但数据解压和压缩动作本身会带来额外的性能损耗，所以需要控制被压缩数据的大小。</p>
+<h2 id="多磁盘存储策略">多磁盘存储策略</h2>
+<p>clickhouse从19.15版本开始支持多磁盘写入。如果使用之前的版本，只能针对每个磁盘建立一个clickhouse节点</p>
+<p>多磁盘写入时，数据存储会按照存储策略在各个盘上，但元数据仍在默认磁盘上(/var/lib/clickhouse)。根据不同的存储策略，可以达到不同的目的</p>
+<p>预先在config.xml中配置名为<code>default_jbod</code>的存储策略，在建立Merge表时使用<code>SETTINGS storage_policy = 'default_jbod'</code>，然后写入数据后再验证。</p>
+<h4 id="jbod策略">JBOD策略</h4>
+<p>每个表有一个存储策略，元数据保留在默认磁盘上</p>
+<p>如果服务器挂载了多块相同配置的磁盘，可以使用JBOD策略（Just a Bunch of Disks），每次INSERT或者MERGE产生的新分区以轮询的方式写入各个磁盘，策略的效果类似于RAID 0</p>
+<p>但这种写入策略因为分区大小不同，容易造成写入不均衡，比如一台机器挂载A、B两个磁盘，分别是4T，但是A磁盘的使用率只有60%，B磁盘的使用率80%。如果在K8S集群中，一个节点的磁盘占用达到85%就会被驱逐，这样整体的磁盘使用率只有70%。</p>
+<p>使用存储策略在一个卷中将两个或多个磁盘分组，数据以轮询的方式在磁盘之间分配。</p>
+<p>每次 insert（或 merge）都会在卷中的下一个磁盘上创建 part。parts 的一半存储在一个磁盘上，其余部分存储在另一个磁盘上。这个概念通常称为 JBOD，它是 “Just a Bunch of Disks” 的缩写。</p>
+<p>从不同磁盘的parts上收集数据，并将合并的新的较大的part放在该卷的其中一个磁盘上（根据轮询算法）</p>
+<p>后台合并往往会随着时间的流逝创建越来越大的 parts，从而将每个生成的 part 移至其中一个磁盘。因此，我们的存储策略不能保证数据将均匀地分布在磁盘上，它也不能保证 JBOD 上的 I/O 吞吐量要比最慢的磁盘上的 I/O 吞吐量更好。为了获得这样的保证，应该改用 RAID。</p>
+<h4 id="hotcold策略">HOT/COLD策略</h4>
+<p>如果服务器挂载了不同类型的磁盘，针对磁盘类型定义不同的存储策略。HOT区域使用SSD高性能存储媒介，注重存取性能。COLD区域使用HDD高容量存储媒介，注重存取经济性。数据写入时，先在HOT区域保存数据，当分区数据大小累积到阈值后，数据会自动移动到COLD区域。每个区域内部也支持JBOD策略。</p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Pantiing</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+      2021-05-08
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://pupti.github.io/tags/clickhouse/">ClickHouse</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/2021/clickhouse1_%E5%9F%BA%E4%BA%8Ek8s%E9%83%A8%E7%BD%B2/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default">基于K8S弹性快速部署ClickHouse集群（一）</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/2021/clickhouse2_mergetree%E5%8E%9F%E7%90%86/">
+            <span class="next-text nav-default">ClickHouse MergeTree原理（二）</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  <div class="post bg-white">
+      <div id="comments-gitment"></div>
+      <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+        <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+      <script type="text/javascript">
+      const gitment = new Gitment({
+        id: 'ClickHouse3_存储.md',
+        title: 'ClickHouse存储（三）',
+        link: decodeURI(location.href),
+        desc: '本文主要内容包括 clickhouse数据存储方式 分片和分区 每列单独存储 分区合并 TTL 多磁盘存储策略 JBOD存储策略 HOT\/COLD存储策略 列式存',
+        owner: 'keysaim',
+        repo: 'comments',
+        oauth: {
+          client_id: 'xxxx',
+          client_secret: 'xxxx'
+        }
+      })
+      gitment.render('comments-gitment')
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+    </div>
+
+  
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="http://localhost:1313" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://pupti.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2021 -
+    2022
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        pupanting
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Pupti</title>
+    <link>https://pupti.github.io/post/</link>
+    <description>Recent content in Posts on Pupti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 12 Feb 2022 12:50:00 +0000</lastBuildDate><atom:link href="https://pupti.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang--cobra包</title>
+      <link>https://pupti.github.io/post/2021/test/</link>
+      <pubDate>Sat, 12 Feb 2022 12:50:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/test/</guid>
+      <description>cobra包可以实现命令行应用，很多开源工具都在使用，比如：kubernetes、docker、filebeat、Hugo等。</description>
+    </item>
+    
+    <item>
+      <title>golang--cobra包</title>
+      <link>https://pupti.github.io/post/2022/2022-02-12-go-croba%E5%8C%85/</link>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2022/2022-02-12-go-croba%E5%8C%85/</guid>
+      <description>cobra包可以实现命令行应用，很多开源工具都在使用，比如：kubernetes、docker、filebeat、Hugo等。官方文档给出了</description>
+    </item>
+    
+    <item>
+      <title>基于K8S弹性快速部署ClickHouse集群（一）</title>
+      <link>https://pupti.github.io/post/2021/clickhouse1_%E5%9F%BA%E4%BA%8Ek8s%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Tue, 08 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/clickhouse1_%E5%9F%BA%E4%BA%8Ek8s%E9%83%A8%E7%BD%B2/</guid>
+      <description>本文介绍在K8S集群上使用clickhouse-operator快速弹性部署ClickHouse集群的基本步骤。 主要是对自己一段时间工作内容</description>
+    </item>
+    
+    <item>
+      <title>ClickHouse存储（三）</title>
+      <link>https://pupti.github.io/post/2021/clickhouse3_%E5%AD%98%E5%82%A8/</link>
+      <pubDate>Sat, 08 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/clickhouse3_%E5%AD%98%E5%82%A8/</guid>
+      <description>本文主要内容包括 clickhouse数据存储方式 分片和分区 每列单独存储 分区合并 TTL 多磁盘存储策略 JBOD存储策略 HOT/COLD存储策略 列式存</description>
+    </item>
+    
+    <item>
+      <title>ClickHouse MergeTree原理（二）</title>
+      <link>https://pupti.github.io/post/2021/clickhouse2_mergetree%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Mon, 26 Apr 2021 16:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/clickhouse2_mergetree%E5%8E%9F%E7%90%86/</guid>
+      <description>本文主要内容包括 写入和存储 每次写入分区命名规则、列式存储 分区合并 负载均衡、分布式写入、分片和分区 TTL 查询和索引 索引、数据标记和查询的关系 分布式</description>
+    </item>
+    
+    <item>
+      <title>查看机器资源</title>
+      <link>https://pupti.github.io/post/2021/linux-%E6%9F%A5%E7%9C%8B%E6%9C%BA%E5%99%A8%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Mon, 26 Apr 2021 16:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/linux-%E6%9F%A5%E7%9C%8B%E6%9C%BA%E5%99%A8%E8%B5%84%E6%BA%90/</guid>
+      <description>查看操作系统版本 1 2 3 4 5 6 7 8 uname -a cat /proc/version cat /etc/issue cat /etc/redhat-release 查看cpu资源 https://blog.csdn.net/qq_21386397/article/details/106372255 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 # 查看cpu信息、型号 cat /proc/cpuinfo | grep name | cut -f2</description>
+    </item>
+    
+    <item>
+      <title>二分查找</title>
+      <link>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</link>
+      <pubDate>Sat, 24 Apr 2021 23:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</guid>
+      <description>正文 二分查找是对数级效率，看似简单，但是细节很多。 二分查找的注意点 mid的赋值 循环跳出的条件 左边界left和右边界left的赋值 target</description>
+    </item>
+    
+    <item>
+      <title>Socket编程</title>
+      <link>https://pupti.github.io/post/2021/%E7%BD%91%E7%BB%9C-socket%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sun, 18 Apr 2021 19:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/%E7%BD%91%E7%BB%9C-socket%E7%BC%96%E7%A8%8B/</guid>
+      <description>Linux下简单socket编程 socket的英文翻译是接口、插座的意思，很形象，就相当于将两个台电脑用一根线连起来，线的两头分别是插头，插</description>
+    </item>
+    
+    <item>
+      <title>按奇偶排序数组</title>
+      <link>https://pupti.github.io/post/2021/ds-%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Thu, 25 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/ds-%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</guid>
+      <description>按奇偶排序数组 题目描述： 给定一个非负整数数组 A，返回一个由 A 的所有偶数元素组成的数组，后面跟 A 的所有奇数元素。 你可以返回满足此条件的任何数组</description>
+    </item>
+    
+  </channel>
+</rss>

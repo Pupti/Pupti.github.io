@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法 on Pupti</title>
+    <link>https://pupti.github.io/categories/%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 算法 on Pupti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 24 Apr 2021 23:00:00 +0000</lastBuildDate><atom:link href="https://pupti.github.io/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>二分查找</title>
+      <link>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</link>
+      <pubDate>Sat, 24 Apr 2021 23:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</guid>
+      <description>正文 二分查找是对数级效率，看似简单，但是细节很多。 二分查找的注意点 mid的赋值 循环跳出的条件 左边界left和右边界left的赋值 target</description>
+    </item>
+    
+    <item>
+      <title>按奇偶排序数组</title>
+      <link>https://pupti.github.io/post/2021/ds-%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Thu, 25 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/ds-%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</guid>
+      <description>按奇偶排序数组 题目描述： 给定一个非负整数数组 A，返回一个由 A 的所有偶数元素组成的数组，后面跟 A 的所有奇数元素。 你可以返回满足此条件的任何数组</description>
+    </item>
+    
+  </channel>
+</rss>

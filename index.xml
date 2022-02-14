@@ -1,0 +1,1104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pupti</title>
+    <link>https://pupti.github.io/</link>
+    <description>Recent content on Pupti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 12 Feb 2022 12:50:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://pupti.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关于</title>
+      <link>https://pupti.github.io/about/</link>
+      <pubDate>Mon, 07 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/about/</guid>
+      
+        <description>&lt;p&gt;要知道选择太多和太少一样很艰难&lt;/p&gt;
+&lt;h1 id=&#34;工作经验&#34;&gt;工作经验&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;2020 - 2022 某互联网金融公司&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>golang--cobra包</title>
+      <link>https://pupti.github.io/post/2021/test/</link>
+      <pubDate>Sat, 12 Feb 2022 12:50:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/test/</guid>
+      
+        <description>&lt;p&gt;cobra包可以实现命令行应用，很多开源工具都在使用，比如：kubernetes、docker、filebeat、Hugo等。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>golang--cobra包</title>
+      <link>https://pupti.github.io/post/2022/2022-02-12-go-croba%E5%8C%85/</link>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2022/2022-02-12-go-croba%E5%8C%85/</guid>
+      
+        <description>&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/cobra&#34;&gt;cobra&lt;/a&gt;包可以实现命令行应用，很多开源工具都在使用，比如：kubernetes、docker、filebeat、Hugo等。官方文档给出了&lt;a href=&#34;https://github.com/spf13/cobra/blob/master/cobra/README.md&#34;&gt;cobra的脚手架使用&lt;/a&gt;和&lt;a href=&#34;https://github.com/spf13/cobra/blob/master/user_guide.md&#34;&gt;使用指南&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;cobra的用法和常接触的命令用法相同，比如&lt;code&gt;git clone URL&lt;/code&gt;、&lt;code&gt;go get -u URL&lt;/code&gt;等。cobra分为根命令rootCmd和子命令，可以通过cobra命令添加子命令或者自行添加子命令。flag用来修饰命令的具体行为。&lt;/p&gt;
+&lt;h3 id=&#34;环境准备和例子&#34;&gt;环境准备和例子&lt;/h3&gt;
+&lt;p&gt;首先下载&lt;code&gt;cobra&lt;/code&gt;包&lt;code&gt;go install github.com/spf13/cobra/cobra&lt;/code&gt;，下载完成后确认&lt;code&gt;cobra&lt;/code&gt;在你的本地命令行可以使用，如果不能使用后续可以尝试&lt;code&gt;~/go/bin/cobra&lt;/code&gt;，其中&lt;code&gt;~/go&lt;/code&gt;是GOPATH。&lt;code&gt;cobra init appname&lt;/code&gt;可以直接创建一个&lt;code&gt;cobra&lt;/code&gt;项目，根据下面给出例子。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;创建项目目录，并创建&lt;code&gt;go mod&lt;/code&gt;项目，&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mkdir myapp
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; myapp
+go mod init myapp
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;初始化 cobra 应用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; myapp
+cobra init myapp    &lt;span class=&#34;c1&#34;&gt;# 如果出现 command not found: cobra， 可以使用 ~/go/bin/cobra init myapp&lt;/span&gt;
+cobra add serve     &lt;span class=&#34;c1&#34;&gt;# 添加子命令&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;需要保证项目的目录结构如下，&lt;code&gt;serve.go&lt;/code&gt;是子命令对应的文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&amp;gt; $ tree                
+.
+├── LICENSE
+├── cmd
+│   └── root.go
+│   └── serve.go
+├── go.mod
+├── go.sum
+└── main.go
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在项目根目录下执行 &lt;code&gt;go build -o myapp&lt;/code&gt;，得到二进制文件，&lt;code&gt;./myapp serve&lt;/code&gt; 就可以使用了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&amp;gt; $ ./myapp serve       
+serve called
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中&lt;code&gt;serve called&lt;/code&gt;是cobra默认填充的信息。&lt;/p&gt;
+&lt;h3 id=&#34;croba启动理解&#34;&gt;croba启动理解&lt;/h3&gt;
+&lt;p&gt;能看到&lt;code&gt;cobra&lt;/code&gt;包中 &lt;code&gt;main&lt;/code&gt;函数中只有&lt;code&gt;cmd.Execute()&lt;/code&gt;调用，最终调用了&lt;code&gt;serve.go&lt;/code&gt;的方法，中间是怎么做的，可以通过运行调试看到调用关系，使用&lt;code&gt;vscode&lt;/code&gt;，&lt;code&gt;launch.json&lt;/code&gt;的内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;0.2.0&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;configurations&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Launch Package&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;go&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;request&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;launch&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;mode&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;auto&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;program&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;你的项目路径&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;serve&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;启动之后看到，调用顺序为&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;myapp/cmd.glob..func1
+github.com/spf13/cobra.(*Command).execute
+github.com/spf13/cobra.(*Command).ExecuteC
+github.com/spf13/cobra.(*Command).Execute
+myapp/cmd.Execute
+main.main
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;基本的调用顺序：&lt;code&gt;main-&amp;gt;rootCmd.Execute()-&amp;gt;cmd.execute(flags)-&amp;gt;c.Run(c, argWoFlags)&lt;/code&gt;，在调用中&lt;code&gt;cmd&lt;/code&gt;是rootCmd，&lt;code&gt;c&lt;/code&gt;是serveCmd。其中&lt;code&gt;Command&lt;/code&gt;结构体的定义如下（删去没用到的变量）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Command&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;Use&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;Short&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;Run&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;args&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// 匿名函数类型
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在&lt;code&gt;serve.go&lt;/code&gt;中，&lt;code&gt;init函数&lt;/code&gt;中添加了子命令，&lt;code&gt;serve变量&lt;/code&gt;中定义了&lt;code&gt;Command结构体&lt;/code&gt;其中包括&lt;code&gt;Run变量&lt;/code&gt;，所以通过serveCmd.Run就能调用子命令的逻辑&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/spf13/cobra&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// serveCmd represents the serve command
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;serveCmd&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cobra&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;Use&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;   &lt;span class=&#34;s&#34;&gt;&amp;#34;serve&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;Short&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;A brief description of your command&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;Long&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;`A longer description that spans multiple lines and likely contains examples
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;and usage of using your command. For example:
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;Cobra is a CLI library for Go that empowers applications.
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;This application is a tool to generate the needed files
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;to quickly create a Cobra application.`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;Run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cobra&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;args&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;serve called&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;rootCmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;AddCommand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serveCmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;更多使用方法&#34;&gt;更多使用方法&lt;/h3&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>基于K8S弹性快速部署ClickHouse集群（一）</title>
+      <link>https://pupti.github.io/post/2021/clickhouse1_%E5%9F%BA%E4%BA%8Ek8s%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Tue, 08 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/clickhouse1_%E5%9F%BA%E4%BA%8Ek8s%E9%83%A8%E7%BD%B2/</guid>
+      
+        <description>&lt;p&gt;本文介绍在&lt;code&gt;K8S&lt;/code&gt;集群上使用&lt;a href=&#34;https://github.com/Altinity/clickhouse-operator&#34;&gt;&lt;code&gt;clickhouse-operator&lt;/code&gt;&lt;/a&gt;快速弹性部署ClickHouse集群的基本步骤。&lt;/p&gt;
+&lt;p&gt;主要是对自己一段时间工作内容的总结，有些图片不方便放，涉及一些K8S的基础知识，看官可以对应了解。&lt;/p&gt;
+&lt;p&gt;主要内容包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;准备机器&lt;/li&gt;
+&lt;li&gt;存储&amp;amp;调度&lt;/li&gt;
+&lt;li&gt;扩容/缩容&lt;/li&gt;
+&lt;li&gt;负载均衡&amp;amp;服务发现&lt;/li&gt;
+&lt;li&gt;是否配置zk&lt;/li&gt;
+&lt;li&gt;监控问题&lt;/li&gt;
+&lt;li&gt;常见问题
+&lt;ol&gt;
+&lt;li&gt;被驱逐&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;基础准备工作&#34;&gt;基础准备工作&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;部署&lt;code&gt;clickhouse-opertor&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;准备机器&lt;/li&gt;
+&lt;li&gt;准备部署的配置文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;需要在K8S集群中部署clickhouse-operator，这样才能使用自定义接口，clickhouse-operator使用的是K8S开放的自定义接口概念，会讲自身的配置文件转化成K8S能认识的配置文件，从而部署集群，直接屏蔽了开发人员和K8S的直接接触。&lt;/p&gt;
+&lt;p&gt;在部署之前，机器的CPU，磁盘数，内存都是需要明确的，clickhouse默认cpu占用16核。如果在K8S内部署，需要提前将机器加入到K8S集群中。&lt;em&gt;需要注意的是，clickhouse从20版本开始，才能支持一个节点使用多个磁盘。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;部署的配置文件可以在&lt;a href=&#34;https://github.com/Altinity/clickhouse-operator&#34;&gt;clickhouse-operator&lt;/a&gt;中找到对应的例子，比如定义要部署在哪个namespace中、部署多大规模的集群、集群名、读写账号等，后文会展开描述。&lt;/p&gt;
+&lt;p&gt;准备好配置文件后，可以通过K8S的master节点，通过&lt;code&gt;kubectl apply/replace/delete&lt;/code&gt;命令进行部署更新&lt;/p&gt;
+&lt;h2 id=&#34;存储调度&#34;&gt;存储&amp;amp;调度&lt;/h2&gt;
+&lt;p&gt;在K8S中部署集群时，可以选择两种方式localpath和hostpath，这两种都可以在部署的配置文件中进行配置：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;直接挂载在机器目录的磁盘上&lt;/li&gt;
+&lt;li&gt;通过pv挂载本机磁盘&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通过给对应的机器添加标签，来决定clickhouse节点部署在哪几台机器上，因为数据库属于有状态任务，所以应该固定在某几台机器上，可以通过给机器添加标签和污点，在部署文件中添加容忍和亲和性来控制节点部署在哪台机器上。&lt;/p&gt;
+&lt;h2 id=&#34;扩容和缩容&#34;&gt;扩容和缩容&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;1. 扩容&lt;/em&gt;： 修改配置文件，更改shards值，并进行&lt;code&gt;kubectl repalce 新配置文件&lt;/code&gt;，新添加的节点会作为整个集群的最后一个节点&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;2. 下线最后一个节点&lt;/em&gt;：直接更改shards值，并进行&lt;code&gt;kubectl repalce 新配置文件&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;3. 下线指定节点&lt;/em&gt;：&lt;code&gt;clickhouse-opertor&lt;/code&gt;在对节点扩容缩容中做的不是很好，目前没找到官方给出的操作。以下给出测试后可行的操作&lt;/p&gt;
+&lt;p&gt;应该分为两种情况&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;短时间屏蔽：将某个节点从集群的配置文件中删除，并重启所有节点&lt;/li&gt;
+&lt;li&gt;彻底下线：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;负载均衡服务发现&#34;&gt;负载均衡&amp;amp;服务发现&lt;/h2&gt;
+&lt;p&gt;集群部署好后，需要提供入口给业务插入数据，clickhouse本身没有负载均衡策略，如果需要的话，需要单独部署chproxy进行对写入流量进行负载均衡&lt;/p&gt;
+&lt;p&gt;如何将写入地址提供给用户，如果同在K8S集群内进行写入，那么只需要通过 &lt;code&gt;服务名.namespace&lt;/code&gt; 就能写入，如果是夸集群写入或者从外部网络进行写入，需要对chproxy或者clickhouse集群设置服务发现。同时使用者需要在本机添加DNS，从而进行写入。&lt;/p&gt;
+&lt;p&gt;如果在K8S集群中，多节点写入时，为集群建立一个service，service能实现转发数据。但是不能完全做到负载均衡，所以还是要使用chproxy。&lt;/p&gt;
+&lt;h2 id=&#34;监控问题&#34;&gt;监控问题&lt;/h2&gt;
+&lt;p&gt;需要监控的组件主要有：chproxy、clickhouse-operator、clickhouse、zk&lt;/p&gt;
+&lt;p&gt;找到监控数据的存放的地方，在官网找到dashboard，进行部署拉取即可。&lt;/p&gt;
+&lt;h2 id=&#34;常见问题&#34;&gt;常见问题&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;节点经常被驱逐，主要原因是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;单个磁盘占用超过85%左右开始被驱逐，所以需要均衡写入&lt;/li&gt;
+&lt;li&gt;一次select时，如果内存使用过多也会被驱逐，所以需要降低内存资源占用，保证在被驱逐的水位线&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在用ck-operator部署ck集群时，default账户不能设置密码，default是高权账户，这样安全性没有保障。（待解决。）从官方解读中看到，如果给default账户设置密码，就不能进行分布式查询，原生的clickhouse可以指定分布式查询的用户。而使用clickhouse-operator，不管登陆的是哪个用户，分布式查询是只能使用default用户，而且不能指定。官方的解读是，使用ck-operator，即在K8S集群内部，这样即使default用户不设定密码，安全性也有保障。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>ClickHouse存储（三）</title>
+      <link>https://pupti.github.io/post/2021/clickhouse3_%E5%AD%98%E5%82%A8/</link>
+      <pubDate>Sat, 08 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/clickhouse3_%E5%AD%98%E5%82%A8/</guid>
+      
+        <description>&lt;p&gt;&lt;strong&gt;本文主要内容包括&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;clickhouse数据存储方式
+&lt;ol&gt;
+&lt;li&gt;分片和分区&lt;/li&gt;
+&lt;li&gt;每列单独存储&lt;/li&gt;
+&lt;li&gt;分区合并&lt;/li&gt;
+&lt;li&gt;TTL&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;多磁盘存储策略
+&lt;ol&gt;
+&lt;li&gt;JBOD存储策略&lt;/li&gt;
+&lt;li&gt;HOT/COLD存储策略&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;列式存储方式&#34;&gt;列式存储方式&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;列式存储的好处：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在查询时减少扫描的数据量：对于大宽表的存储，往往只对其中的几列查询率高，如果是行式存储，会造成对其他行不必要的扫描。按列存储只需要扫描对应的列即可&lt;/li&gt;
+&lt;li&gt;数据压缩率高：压缩的本质是数据中重复项越多，压缩率越高，数据体量越小，数据体量小，则对网络的压力小，则对带宽和磁盘压力小。(同一列的数据重复项较多），解压缩的速度主要取决于未压缩数据的大小
+每列数据被存储在&lt;code&gt;.bin&lt;/code&gt;后缀中，数据根据压缩（可以自行选择压缩算法），按照&lt;code&gt;ORDER BY&lt;/code&gt;排序，以压缩数据块的形式被组织写入&lt;code&gt; .bin&lt;/code&gt;文件中。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;压缩数据块由头信息和压缩数据组成，头信息有压缩算法、压缩前和压缩后数据大小。每个数据块大小是&lt;code&gt;64KB ～ 1MB&lt;/code&gt;，最终大小和索引粒度&lt;code&gt;index_granularity&lt;/code&gt;相关。&lt;/p&gt;
+&lt;p&gt;如果一批数据小于&lt;code&gt;64KB&lt;/code&gt;，则等待下一批数据，直到&lt;code&gt;64KB&lt;/code&gt;；如果在&lt;code&gt;64KB ～ 1MB&lt;/code&gt;之间，则直接生产下一个压缩数据块；如果大于&lt;code&gt;1MB&lt;/code&gt;，先按照&lt;code&gt;1MB&lt;/code&gt;截断，再生成下一个压缩数据块。&lt;/p&gt;
+&lt;p&gt;在读取时，将压缩数据块加载到内存中解压，再进行后续操作。虽然压缩时降低存储空间，但数据解压和压缩动作本身会带来额外的性能损耗，所以需要控制被压缩数据的大小。&lt;/p&gt;
+&lt;h2 id=&#34;多磁盘存储策略&#34;&gt;多磁盘存储策略&lt;/h2&gt;
+&lt;p&gt;clickhouse从19.15版本开始支持多磁盘写入。如果使用之前的版本，只能针对每个磁盘建立一个clickhouse节点&lt;/p&gt;
+&lt;p&gt;多磁盘写入时，数据存储会按照存储策略在各个盘上，但元数据仍在默认磁盘上(/var/lib/clickhouse)。根据不同的存储策略，可以达到不同的目的&lt;/p&gt;
+&lt;p&gt;预先在config.xml中配置名为&lt;code&gt;default_jbod&lt;/code&gt;的存储策略，在建立Merge表时使用&lt;code&gt;SETTINGS storage_policy = &#39;default_jbod&#39;&lt;/code&gt;，然后写入数据后再验证。&lt;/p&gt;
+&lt;h4 id=&#34;jbod策略&#34;&gt;JBOD策略&lt;/h4&gt;
+&lt;p&gt;每个表有一个存储策略，元数据保留在默认磁盘上&lt;/p&gt;
+&lt;p&gt;如果服务器挂载了多块相同配置的磁盘，可以使用JBOD策略（Just a Bunch of Disks），每次INSERT或者MERGE产生的新分区以轮询的方式写入各个磁盘，策略的效果类似于RAID 0&lt;/p&gt;
+&lt;p&gt;但这种写入策略因为分区大小不同，容易造成写入不均衡，比如一台机器挂载A、B两个磁盘，分别是4T，但是A磁盘的使用率只有60%，B磁盘的使用率80%。如果在K8S集群中，一个节点的磁盘占用达到85%就会被驱逐，这样整体的磁盘使用率只有70%。&lt;/p&gt;
+&lt;p&gt;使用存储策略在一个卷中将两个或多个磁盘分组，数据以轮询的方式在磁盘之间分配。&lt;/p&gt;
+&lt;p&gt;每次 insert（或 merge）都会在卷中的下一个磁盘上创建 part。parts 的一半存储在一个磁盘上，其余部分存储在另一个磁盘上。这个概念通常称为 JBOD，它是 “Just a Bunch of Disks” 的缩写。&lt;/p&gt;
+&lt;p&gt;从不同磁盘的parts上收集数据，并将合并的新的较大的part放在该卷的其中一个磁盘上（根据轮询算法）&lt;/p&gt;
+&lt;p&gt;后台合并往往会随着时间的流逝创建越来越大的 parts，从而将每个生成的 part 移至其中一个磁盘。因此，我们的存储策略不能保证数据将均匀地分布在磁盘上，它也不能保证 JBOD 上的 I/O 吞吐量要比最慢的磁盘上的 I/O 吞吐量更好。为了获得这样的保证，应该改用 RAID。&lt;/p&gt;
+&lt;h4 id=&#34;hotcold策略&#34;&gt;HOT/COLD策略&lt;/h4&gt;
+&lt;p&gt;如果服务器挂载了不同类型的磁盘，针对磁盘类型定义不同的存储策略。HOT区域使用SSD高性能存储媒介，注重存取性能。COLD区域使用HDD高容量存储媒介，注重存取经济性。数据写入时，先在HOT区域保存数据，当分区数据大小累积到阈值后，数据会自动移动到COLD区域。每个区域内部也支持JBOD策略。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>ClickHouse MergeTree原理（二）</title>
+      <link>https://pupti.github.io/post/2021/clickhouse2_mergetree%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Mon, 26 Apr 2021 16:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/clickhouse2_mergetree%E5%8E%9F%E7%90%86/</guid>
+      
+        <description>&lt;p&gt;本文主要内容包括&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;写入和存储
+&lt;ol&gt;
+&lt;li&gt;每次写入分区命名规则、列式存储&lt;/li&gt;
+&lt;li&gt;分区合并&lt;/li&gt;
+&lt;li&gt;负载均衡、分布式写入、分片和分区&lt;/li&gt;
+&lt;li&gt;TTL&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;查询和索引
+&lt;ol&gt;
+&lt;li&gt;索引、数据标记和查询的关系&lt;/li&gt;
+&lt;li&gt;分布式查询&lt;/li&gt;
+&lt;li&gt;常见问题&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;常见问题
+&lt;ol&gt;
+&lt;li&gt;查询内存限制&lt;/li&gt;
+&lt;li&gt;写入次数限制&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;创建mergetree表&#34;&gt;创建MergeTree表&lt;/h2&gt;
+&lt;p&gt;clickhouse的建表语句是类sql&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;CREATE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;TABLE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;timestamp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DateTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENGINE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MergeTree&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;partition&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ORDER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;BY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;timestamp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中PARTITION BY[选填]是分区键，可以使用任何一个或者一组字段声明。如果不声明，会出现名为all的分区
+ORDER BY[必填] 排序键必填
+PRIMARY BY[选填]，默认和排序键相同
+SETIINGS 中有多个参数，其中主要的是&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;index_granularity[选填]，索引粒度，默认8192&lt;/li&gt;
+&lt;li&gt;storage_policy&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;每张表的数据存储在一个表目录中，表目录中有多个分区目录，在每个分区目录中每列存储数据（Column.bin、Column.mrk、Column.mrk2）和其他文件。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;checksums.txt: 校验文件，二进制存储，保存余下文件的大小，以及大小的哈希值，快速校验文件的完整性和正确性。&lt;/li&gt;
+&lt;li&gt;column.txt: 列信息文件，明文存储。保存分区目录下的列信息&lt;/li&gt;
+&lt;li&gt;count.txt: 计数文件，明文存储，保存该分区目录下记录的总行数&lt;/li&gt;
+&lt;li&gt;primary.idx: 一级索引文件，二进制存储&lt;/li&gt;
+&lt;li&gt;[Column].bin: 数据文件，二进制存储，默认LZ4压缩格式。不太懂&lt;/li&gt;
+&lt;li&gt;[Column].mrk: 列字段标记文件，二进制存储。不太懂&lt;/li&gt;
+&lt;li&gt;[Column].mrk2: 不太懂&lt;/li&gt;
+&lt;li&gt;。。。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;每次写入过程&#34;&gt;每次写入过程&lt;/h2&gt;
+&lt;p&gt;如果是物理机，直接通过&lt;code&gt;ip:port&lt;/code&gt;可写入，如果是K8S集群，需要通过域名/K8S网络进行写入。&lt;/p&gt;
+&lt;p&gt;每次写入时会将一批数据按照规则存储为若干个分区，在建表时partition by关键词，来控制是否同一个分区。比如如果以一天为一个分区。&lt;/p&gt;
+&lt;h3 id=&#34;计算分区id&#34;&gt;计算分区ID&lt;/h3&gt;
+&lt;p&gt;根据不同分区键的类型计算分区ID&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;不指定分区键，分区ID默认为all&lt;/li&gt;
+&lt;li&gt;分区键为整型，分区ID直接取整型的值&lt;/li&gt;
+&lt;li&gt;使用日期类型，按照YYYYMMDD作为分区ID&lt;/li&gt;
+&lt;li&gt;其他类型，通过128位Hash值作为分区ID&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果是一组分区键，则将多个ID通过&#39;-&amp;lsquo;符号进行拼接。&lt;/p&gt;
+&lt;h3 id=&#34;分区的命名规则&#34;&gt;分区的命名规则&lt;/h3&gt;
+&lt;p&gt;每个分区目录生成规则如 &lt;code&gt;partitionID_MinBolakNum_MaxBolckNum_Level&lt;/code&gt;其中：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;MinBolakNum和MaxBolckNum，是一个自增长编号，每当创建一个新分区目录，就会自增1&lt;/li&gt;
+&lt;li&gt;Level表示分区的合并次数，可以理解为这个分区的年龄，数值越高，年龄越大，每个新创建的目录，其初始值为0&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;分区目录进行合并&#34;&gt;分区目录进行合并&lt;/h3&gt;
+&lt;p&gt;（一个分区是一个文件夹，文件夹中每个列对应一个文件），即便是不同批次写入的数据属于相同分区，也会生成不同的分区目录，后台任务再按照一定的规则将若干个小分区合并为大分区，继续合并，直到形成最大分区。旧分区目录在某个时刻通过后台任务被删除。并且会被记录为非激活状态。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;可以通过查询系统表获取分区状态、分区大小。&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;分区和表的关系：一张表中的数据为分批次写入的，每次写入时会生成一个分区。&lt;/p&gt;
+&lt;p&gt;在创建表时，有 partition 关键词来规定如何使用分区。
+分区过大和过小都不好，需要根据写入的数据和服务器能力均衡：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;曾经将时间设为分区规则，造成，有很多小分区，最终影响写入&lt;/li&gt;
+&lt;li&gt;如果一台服务器挂载多个磁盘，会因为分区过大，单磁盘分布不均衡&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;分布式写入&lt;/strong&gt;
+clickhouse本身没有负载均衡能力，需要借助chproxy。同时，如果是分布式表，可以直接写入分布式表，分布式表通过对应的策略来确定该次数据写入到哪个节点中。&lt;/p&gt;
+&lt;h2 id=&#34;查询&#34;&gt;查询&lt;/h2&gt;
+&lt;p&gt;按照主键对数据进行排序，能使得clickhouse在几十毫秒内完成对数据库的查询。&lt;/p&gt;
+&lt;p&gt;分区目录的&lt;code&gt;primary.idx&lt;/code&gt;是一级索引文件，二进制存储，采用稀疏索引实现。一行索引标记一段数据。&lt;/p&gt;
+&lt;p&gt;索引粒度是&lt;code&gt;index_granularity&lt;/code&gt;时，数据被以&lt;code&gt;index_granularity&lt;/code&gt;的粒度标记成多个小区间。数据也会被按照&lt;code&gt;index_granularity&lt;/code&gt;的间隔压缩成数据块。每隔&lt;code&gt;index_granularity&lt;/code&gt;行数据会取一次主键的值作为索引值存入&lt;code&gt;primary.idx&lt;/code&gt;中。&lt;/p&gt;
+&lt;h3 id=&#34;查询-1&#34;&gt;查询&lt;/h3&gt;
+&lt;p&gt;分区（partition）和分片（shard）&lt;/p&gt;
+&lt;p&gt;因为索引值是每隔&lt;code&gt;index_granularity&lt;/code&gt;行数据会取一次主键的值作为索引值存储的，可以将索引值看作每个小区间的数据边界&lt;code&gt;MarkRange&lt;/code&gt;，索引查询是判断数值区间的交集判断。一个区间是查询时基于主键的查询条件，另一个是&lt;code&gt;MarkRange&lt;/code&gt;，相邻&lt;code&gt;MarkRange&lt;/code&gt;的步长是1。然后进行递归交集判断：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果不存在交集，通过剪枝算法优化&lt;code&gt;MarkRange&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;若存在交集，且&lt;code&gt;MarkRange&lt;/code&gt;步长大于8，则继续做递归交集判断&lt;/li&gt;
+&lt;li&gt;若存在交集，且&lt;code&gt;MarkRange&lt;/code&gt;不可分，则返回&lt;/li&gt;
+&lt;li&gt;合并&lt;code&gt;MarkRange&lt;/code&gt;，在读取数据的时候能最小化扫描数据范围。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;分布式查询时，clickhouse的每个节点可以看作一个分片，分片是本地表。可以设置每个本地表的分布式表，查询时查询分布式表，分布式表作为“代理”查询该集群所有节点的本地表。分布式表本身不占用存储，是一个虚拟表。&lt;/p&gt;
+&lt;p&gt;参考文档&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/jiangshouzhuang/article/details/103650360&#34;&gt;https://blog.csdn.net/jiangshouzhuang/article/details/103650360&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>查看机器资源</title>
+      <link>https://pupti.github.io/post/2021/linux-%E6%9F%A5%E7%9C%8B%E6%9C%BA%E5%99%A8%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Mon, 26 Apr 2021 16:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/linux-%E6%9F%A5%E7%9C%8B%E6%9C%BA%E5%99%A8%E8%B5%84%E6%BA%90/</guid>
+      
+        <description>&lt;h2 id=&#34;查看操作系统版本&#34;&gt;查看操作系统版本&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;uname -a
+
+cat /proc/version
+
+cat /etc/issue
+
+cat /etc/redhat-release
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;查看cpu资源&#34;&gt;查看cpu资源&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_21386397/article/details/106372255&#34;&gt;https://blog.csdn.net/qq_21386397/article/details/106372255&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看cpu信息、型号&lt;/span&gt;
+cat /proc/cpuinfo &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep name &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; cut -f2 -d: &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c
+&lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; Intel® Core™ i5-7400 CPU @ 3.00GHz
+jia@jiaSys:~$
+有4个核心
+型号：i5-7400
+主频：3.00GHz
+
+&lt;span class=&#34;c1&#34;&gt;# 查看物理cpu&lt;/span&gt;
+cat /proc/cpuinfo&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep “physical id”&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; wc -l
+&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# 查看每个物理CPU中core的个数(即核数)&lt;/span&gt;
+cat /proc/cpuinfo &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &lt;span class=&#34;s2&#34;&gt;&amp;#34;cpu cores&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq
+
+&lt;span class=&#34;c1&#34;&gt;# 查看逻辑CPU的个数&lt;/span&gt;
+cat /proc/cpuinfo&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep “processor”&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; wc -l
+&lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;CPU总核数 = 物理CPU个数 * 每颗物理CPU的核数
+总逻辑CPU数 = 物理CPU个数 * 每颗物理CPU的核数 * 超线程数&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;一台电脑安装多个cpu，多个cpu之间用总线进行通讯。&lt;/li&gt;
+&lt;li&gt;多个核心cpu，即一个cpu内部有多个core核心。&lt;/li&gt;
+&lt;li&gt;多核超线程，即每个核有两个逻辑的处理单元，这些逻辑单元共享同一个核的资源。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在 &lt;code&gt;cat /proc/cpuinfo&lt;/code&gt; 时，有很多指标，比较重要的指标有
+processor 逻辑处理器的id
+physical id 物理封装的处理器的id
+core id 每个核心的id
+cpu cores 位于相同封装物理的处理器的内核数量
+siblings 位于相同物理封装的处理器的逻辑处理器的数量&lt;/p&gt;
+&lt;p&gt;如果cpu cores为4时，physical id有两个，core id有8个，siblings的值为8，总共有16个processor&lt;/p&gt;
+&lt;p&gt;每个服务器主机的cpu为2个物理封装的处理器，每个处理器又有4个处理核心，每个处理核心又可划分为2个物理处理器(超线程技术)，因此每个物理处理器有18个逻辑处理器，总共16个proceesor。&lt;/p&gt;
+&lt;h2 id=&#34;查看存储资源&#34;&gt;查看存储资源&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看硬盘和磁盘占用&lt;/span&gt;
+df -lh
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;查看内存&#34;&gt;查看内存&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看内存情况&lt;/span&gt;
+free -g
+
+top
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>二分查找</title>
+      <link>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</link>
+      <pubDate>Sat, 24 Apr 2021 23:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</guid>
+      
+        <description>&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;正文&#34;&gt;正文&lt;/h2&gt;
+&lt;p&gt;二分查找是对数级效率，看似简单，但是细节很多。&lt;/p&gt;
+&lt;p&gt;二分查找的注意点&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;mid的赋值&lt;/li&gt;
+&lt;li&gt;循环跳出的条件&lt;/li&gt;
+&lt;li&gt;左边界left和右边界left的赋值&lt;/li&gt;
+&lt;li&gt;target的下标确定&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;一般二分查找&#34;&gt;一般二分查找&lt;/h3&gt;
+&lt;p&gt;从有序数组中找到某个值的下表，如果找不到返回 -1&lt;/p&gt;
+&lt;h3 id=&#34;从左侧二分查找&#34;&gt;从左侧二分查找&lt;/h3&gt;
+&lt;h3 id=&#34;从右侧二分查找&#34;&gt;从右侧二分查找&lt;/h3&gt;
+&lt;h2 id=&#34;后记&#34;&gt;后记&lt;/h2&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/xjtsh/p/12614374.html&#34;&gt;https://www.cnblogs.com/xjtsh/p/12614374.html&lt;/a&gt;
+&lt;a href=&#34;https://www.cnblogs.com/kyoner/p/11080078.html&#34;&gt;https://www.cnblogs.com/kyoner/p/11080078.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;oj&#34;&gt;OJ&lt;/h2&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Socket编程</title>
+      <link>https://pupti.github.io/post/2021/%E7%BD%91%E7%BB%9C-socket%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sun, 18 Apr 2021 19:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/%E7%BD%91%E7%BB%9C-socket%E7%BC%96%E7%A8%8B/</guid>
+      
+        <description>&lt;h1 id=&#34;linux下简单socket编程&#34;&gt;Linux下简单socket编程&lt;/h1&gt;
+&lt;p&gt;socket的英文翻译是接口、插座的意思，很形象，就相当于将两个台电脑用一根线连起来，线的两头分别是插头，插在两台电脑上，借此实现通信。&lt;/p&gt;
+&lt;p&gt;两台电脑通信，实际上是这两台电脑上的某个进程在进行通信。而两个进程进行通信，实际上是往同一个文件中读取数据。&lt;/p&gt;
+&lt;p&gt;在理解socket编程之前，先大概了解一下&lt;strong&gt;socket缓冲区的概念&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;socket编程基于传输层，是应用层和传输层之间的一个抽象层。在使用socket API时，实际上每创建一个socket，都会分配两个缓冲区，输入缓冲区和输出缓冲区（大小一般是8K），Linux下一切皆文件的思想，两台主机在进行通信时，write函数是向缓冲区里写，read函数是从缓冲区里读，至于缓冲区里的数据什么时候被传输，有没有达到目标主机，这些都交给传输层的TCP/UDP来做。&lt;/p&gt;
+&lt;p&gt;但在Windows中，将socket文件和普通文件分开，所以不能用write函数和read函数实现，而是用send函数和recv函数。&lt;/p&gt;
+&lt;p&gt;每次通信都打开了一个socket文件，所以通信结束后，在进程关闭前，要关闭所有的socket文件。&lt;/p&gt;
+&lt;h2 id=&#34;三次握手四次挥手&#34;&gt;三次握手、四次挥手&lt;/h2&gt;
+&lt;p&gt;socket的API是在三次握手和四次挥手的基础上设置的接口&lt;/p&gt;
+&lt;p&gt;接口中用到的结构体（如：sockaddr、sockaddr_in），初学照猫画虎即可，不用深究。&lt;/p&gt;
+&lt;p&gt;总的来说，不管是&lt;strong&gt;struct sockaddr&lt;/strong&gt;还是**struct sockaddr_in **都是存放了一个ip地址，一个端口号，和ip的类型(IPV4还是IPV6)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每次输入的ip要通过inet_addr(&amp;ldquo;127.0.0.1&amp;rdquo;)函数转化，将一个点分十进制ip转换成长无符号整形，头文件在&amp;lt;arpa/inet.h&amp;gt;中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;端口号要转换成小端，具体操作及原因在&lt;a href=&#34;https://blog.csdn.net/weixin_41249411/article/details/86583536&#34;&gt;网络字节序&lt;/a&gt;有详细介绍。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;下图是三次握手的流程图：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;一个客户端只有一个sock（文件描述符），而一个服务器最少有两个（一个是自己创建socket时的sock，剩下的是每有一个客户端连接服务器就生成一个sock文件描述符）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在数据传输过程中，即相当于文件的读写操作：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;四次挥手在socket API上的接口表示为关闭各自拥有的文件描述符即可。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;listen函数的第二个参数：&lt;/p&gt;
+&lt;p&gt;①：要维护等待队列&lt;/p&gt;
+&lt;p&gt;②：等待队列不能太长，太长，维护该队列消耗的资源太多。&lt;/p&gt;
+&lt;p&gt;accept拿到的连接是已经建立过三次握手的&lt;/p&gt;
+&lt;p&gt;##Linux下TCP的socket通信：&lt;/p&gt;
+&lt;p&gt;实现了一次客户端向服务器发送数据和一次服务器向客户端响应的通信。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/*serve_tcp.c*/&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;netinet/in.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(){&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;//创建套接字
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;serv_sock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AF_INET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IPPROTO_TCP&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;//初始化socket元素
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sockaddr_in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;memset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sin_family&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AF_INET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sin_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s_addr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inet_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sin_port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;htons&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1234&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;//绑定文件描述符和服务器的ip和端口号
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;n&#34;&gt;bind&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sockaddr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;//进入监听状态，等待用户发起请求
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;n&#34;&gt;listen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;//接受客户端请求
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;//定义客户端的套接字，这里返回一个新的套接字，后面通信时，就用这个clnt_sock进行通信
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sockaddr_in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clnt_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;socklen_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clnt_addr_size&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clnt_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clnt_sock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;accept&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sockaddr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clnt_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clnt_addr_size&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;//接收客户端数据，并响应
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;256&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clnt_sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;client send: %s&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;strcat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;+ACK&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clnt_sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;//关闭套接字
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;n&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clnt_sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/*client_tcp.c*/&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(){&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;//创建套接字
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AF_INET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;//服务器的ip为本地，端口号1234
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sockaddr_in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;memset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sin_family&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AF_INET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sin_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s_addr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inet_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sin_port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;htons&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1234&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	
+	&lt;span class=&#34;c1&#34;&gt;//向服务器发送连接请求
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;n&#34;&gt;connect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sockaddr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;serv_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;//发送并接收数据
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;40&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Please write:&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;scanf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Serve send: %s&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;//断开连接
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;n&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意：应先运行服务器端，再运行客户端。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;网络字节序大小端&#34;&gt;网络字节序——大小端&lt;/h2&gt;
+&lt;p&gt;计算机内部因为系统差异，数据存储分为大端存储和小端存储。&lt;/p&gt;
+&lt;p&gt;大端存储：数据的&lt;!-- raw HTML omitted --&gt;高&lt;!-- raw HTML omitted --&gt;位存储在&lt;!-- raw HTML omitted --&gt;低&lt;!-- raw HTML omitted --&gt;地址处，数据的&lt;!-- raw HTML omitted --&gt;低&lt;!-- raw HTML omitted --&gt;位存储在&lt;!-- raw HTML omitted --&gt;高&lt;!-- raw HTML omitted --&gt;地址处(&lt;!-- raw HTML omitted --&gt;大高低&lt;!-- raw HTML omitted --&gt;)。&lt;/p&gt;
+&lt;p&gt;小端存储：数据的&lt;!-- raw HTML omitted --&gt;低&lt;!-- raw HTML omitted --&gt;位存储在&lt;!-- raw HTML omitted --&gt;低&lt;!-- raw HTML omitted --&gt;地址处，数据的&lt;!-- raw HTML omitted --&gt;高&lt;!-- raw HTML omitted --&gt;位存储在&lt;!-- raw HTML omitted --&gt;高&lt;!-- raw HTML omitted --&gt;地址处(&lt;!-- raw HTML omitted --&gt;小低低&lt;!-- raw HTML omitted --&gt;)。&lt;/p&gt;
+&lt;p&gt;网络通信要连接两台不同的主机，如果两台主机的大小端不一致，那么通信的数据交换会无法识别。&lt;/p&gt;
+&lt;p&gt;场景1：主机A、B进行通信。主机A是大端存储，主机B是小端存储。&lt;/p&gt;
+&lt;p&gt;已知：发送主机发送缓冲区数据时从&lt;!-- raw HTML omitted --&gt;低&lt;!-- raw HTML omitted --&gt;地址到&lt;!-- raw HTML omitted --&gt;高&lt;!-- raw HTML omitted --&gt;地址发送的，&lt;/p&gt;
+&lt;p&gt;​	    接收主机接收时也是用&lt;!-- raw HTML omitted --&gt;低&lt;!-- raw HTML omitted --&gt;地址到&lt;!-- raw HTML omitted --&gt;高&lt;!-- raw HTML omitted --&gt;地址保存的。&lt;/p&gt;
+&lt;p&gt;假设A要发送的数据是ABCDEFGH，那么B接收到的数据将是GHEFCDAB。&lt;/p&gt;
+&lt;p&gt;这样无法正常通信。&lt;/p&gt;
+&lt;p&gt;所以TCP/IP规定，网络数据流应采用大端字节序：即低地址高字节，不管自己的主机是大端存储还是小端存储，都应按照这个TCP/IP规定的网络字节序来发送/接收数据。&lt;/p&gt;
+&lt;p&gt;为了使网络程序具有移植性，&lt;strong&gt;所以有C语言的库函数做网络字节序和主机字节序的转换&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span class=&#34;n&#34;&gt;NAME&lt;/span&gt;
+       &lt;span class=&#34;n&#34;&gt;htonl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;htons&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;ntohl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;ntohs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;convert&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;between&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;host&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;network&lt;/span&gt;
+       &lt;span class=&#34;n&#34;&gt;byte&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;order&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;SYNOPSIS&lt;/span&gt;	&lt;span class=&#34;cm&#34;&gt;/*摘要*/&lt;/span&gt;
+       &lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+       &lt;span class=&#34;kt&#34;&gt;uint32_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;htonl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;uint32_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hostlong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+       &lt;span class=&#34;kt&#34;&gt;uint16_t&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;htons&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;uint16_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hostshort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+       &lt;span class=&#34;kt&#34;&gt;uint32_t&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ntohl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;uint32_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;netlong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+       &lt;span class=&#34;kt&#34;&gt;uint16_t&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ntohs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;uint16_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;netshort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//h表示host，n表示network，l表示32位整数，s表示16位短整数
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//to表示从...到...变化
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;如果主机是小端存储，这些函数会将参数做相应变化再返回。&lt;/li&gt;
+&lt;li&gt;如果主机是大端存储，则不做转换，数据原封不动返回。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>按奇偶排序数组</title>
+      <link>https://pupti.github.io/post/2021/ds-%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Thu, 25 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/ds-%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/</guid>
+      
+        <description>&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/sort-array-by-parity/&#34;&gt;按奇偶排序数组&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;题目描述：&lt;/p&gt;
+&lt;p&gt;给定一个非负整数数组 &lt;code&gt;A&lt;/code&gt;，返回一个由 &lt;code&gt;A&lt;/code&gt; 的所有偶数元素组成的数组，后面跟 &lt;code&gt;A&lt;/code&gt; 的所有奇数元素。&lt;/p&gt;
+&lt;p&gt;你可以返回满足此条件的任何数组作为答案。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;示例：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;输入：[3,1,2,4]
+输出：[2,4,3,1]
+输出：[4,2,3,1]，[2,4,1,3] 和 [4,2,1,3] 也会被接受。
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;1 &amp;lt;= A.length &amp;lt;= 5000&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;0 &amp;lt;= A[i] &amp;lt;= 5000&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;思路(两种方法):&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;方法一：重新开辟一个和数组A大小相同的空间tmp，遍历数组，偶数放在tmp的前端，奇数放在tmp后边。&lt;/li&gt;
+&lt;li&gt;方法二：类似于快速排序的思路——同时从数组两头遍历，从数组头判断是偶数就继续遍历，从数组尾部，是奇数就继续遍历，如果不满足条件就交换两数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;思路一&#34;&gt;思路一&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/*
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;**重新开辟一块大小相同的空间，遍历数组，是偶数就将
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;**该数存到数组的前面，是奇数
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;**就存到数组的后边。
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;***/&lt;/span&gt;
+
+&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * Note: The returned array must be malloced, assume caller calls free().
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;sortArrayByParity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;numsSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;returnSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
+
+    &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;returnSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;numsSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tmp&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;malloc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;numsSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;begin&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;numsSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;numsSize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;tmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;begin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;tmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;思路二&#34;&gt;思路二&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;
+/******code_2******/
+/**
+ * Return an array of size *returnSize.
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* sortArrayByParity(int* nums, int numsSize, int* returnSize){
+
+    int begin = 0, end = numsSize - 1;
+
+    while(begin &amp;lt; end){
+        while(begin &amp;lt; numsSize ){
+            // 奇数则后挪，不能使用nums[begin++]
+            if(nums[begin] % 2 == 1){
+                break;
+            }
+            begin++;
+        }
+        while(end &amp;gt;= 0){
+            // 偶数往前挪
+            if(nums[end] % 2 == 0){
+                break;
+            }
+            end--;
+        }
+       if(begin &amp;lt; numsSize &amp;amp;&amp;amp; end &amp;gt;= 0 &amp;amp;&amp;amp; begin &amp;lt; end){
+            int tmp = nums[begin];
+            nums[begin] = nums[end];
+            nums[end] = tmp;
+            begin++;
+            end--;
+       }
+    }
+    *returnSize = numsSize;
+    return nums;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

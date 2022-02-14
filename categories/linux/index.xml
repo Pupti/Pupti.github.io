@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Pupti</title>
+    <link>https://pupti.github.io/categories/linux/</link>
+    <description>Recent content in Linux on Pupti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 26 Apr 2021 16:00:00 +0000</lastBuildDate><atom:link href="https://pupti.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>查看机器资源</title>
+      <link>https://pupti.github.io/post/2021/linux-%E6%9F%A5%E7%9C%8B%E6%9C%BA%E5%99%A8%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Mon, 26 Apr 2021 16:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/linux-%E6%9F%A5%E7%9C%8B%E6%9C%BA%E5%99%A8%E8%B5%84%E6%BA%90/</guid>
+      <description>查看操作系统版本 1 2 3 4 5 6 7 8 uname -a cat /proc/version cat /etc/issue cat /etc/redhat-release 查看cpu资源 https://blog.csdn.net/qq_21386397/article/details/106372255 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 # 查看cpu信息、型号 cat /proc/cpuinfo | grep name | cut -f2</description>
+    </item>
+    
+  </channel>
+</rss>

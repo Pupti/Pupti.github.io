@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Socket on Pupti</title>
+    <link>https://pupti.github.io/tags/socket/</link>
+    <description>Recent content in Socket on Pupti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 18 Apr 2021 19:00:00 +0000</lastBuildDate><atom:link href="https://pupti.github.io/tags/socket/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Socket编程</title>
+      <link>https://pupti.github.io/post/2021/%E7%BD%91%E7%BB%9C-socket%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sun, 18 Apr 2021 19:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/%E7%BD%91%E7%BB%9C-socket%E7%BC%96%E7%A8%8B/</guid>
+      <description>Linux下简单socket编程 socket的英文翻译是接口、插座的意思，很形象，就相当于将两个台电脑用一根线连起来，线的两头分别是插头，插</description>
+    </item>
+    
+  </channel>
+</rss>

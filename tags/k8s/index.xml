@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>K8S on Pupti</title>
+    <link>https://pupti.github.io/tags/k8s/</link>
+    <description>Recent content in K8S on Pupti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 08 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pupti.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于K8S弹性快速部署ClickHouse集群（一）</title>
+      <link>https://pupti.github.io/post/2021/clickhouse1_%E5%9F%BA%E4%BA%8Ek8s%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Tue, 08 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pupti.github.io/post/2021/clickhouse1_%E5%9F%BA%E4%BA%8Ek8s%E9%83%A8%E7%BD%B2/</guid>
+      <description>本文介绍在K8S集群上使用clickhouse-operator快速弹性部署ClickHouse集群的基本步骤。 主要是对自己一段时间工作内容</description>
+    </item>
+    
+  </channel>
+</rss>
