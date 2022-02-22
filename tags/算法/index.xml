@@ -8,12 +8,12 @@
     <language>zh-cn</language>
     <lastBuildDate>Sat, 24 Apr 2021 23:00:00 +0000</lastBuildDate><atom:link href="https://pupti.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>二分查找</title>
+      <title>查找算法之二分查找</title>
       <link>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</link>
       <pubDate>Sat, 24 Apr 2021 23:00:00 +0000</pubDate>
       
       <guid>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</guid>
-      <description>正文 二分查找是对数级效率，看似简单，但是细节很多。 二分查找的注意点 mid的赋值 循环跳出的条件 左边界left和右边界left的赋值 target</description>
+      <description>顺序查找算法的时间复杂度是On，二分查找算法的时间复杂度是logN，二分查找适用于已经进行递增或者递减排序的数据。对于如[1, 2, 2, 3, 4]这样</description>
     </item>
     
     <item>

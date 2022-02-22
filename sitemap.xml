@@ -10,55 +10,48 @@
   
   <url>
     <loc>https://pupti.github.io/categories/</loc>
-    <lastmod>2022-02-12T12:50:00+00:00</lastmod>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pupti.github.io/tags/golang/</loc>
-    <lastmod>2022-02-12T12:50:00+00:00</lastmod>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pupti.github.io/categories/golang/</loc>
-    <lastmod>2022-02-12T12:50:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pupti.github.io/post/2021/test/</loc>
-    <lastmod>2022-02-12T12:50:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pupti.github.io/post/</loc>
-    <lastmod>2022-02-12T12:50:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pupti.github.io/</loc>
-    <lastmod>2022-02-12T12:50:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://pupti.github.io/tags/</loc>
-    <lastmod>2022-02-12T12:50:00+00:00</lastmod>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://pupti.github.io/post/2022/2022-02-12-go-croba%E5%8C%85/</loc>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pupti.github.io/post/</loc>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pupti.github.io/</loc>
+    <lastmod>2022-02-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pupti.github.io/tags/</loc>
     <lastmod>2022-02-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

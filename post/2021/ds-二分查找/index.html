@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>二分查找 - Pupti</title>
+  <title>查找算法之二分查找 - Pupti</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -23,7 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="Pantiing" />
-  <meta name="description" content="正文 二分查找是对数级效率，看似简单，但是细节很多。 二分查找的注意点 mid的赋值 循环跳出的条件 左边界left和右边界left的赋值 target" />
+  <meta name="description" content="顺序查找算法的时间复杂度是On，二分查找算法的时间复杂度是logN，二分查找适用于已经进行递增或者递减排序的数据。对于如[1, 2, 2, 3, 4]这样" />
 
   <meta name="keywords" content="Hugo, theme, jane" />
 
@@ -59,20 +59,20 @@
 
 
 
-<meta property="og:title" content="二分查找" />
-<meta property="og:description" content="正文 二分查找是对数级效率，看似简单，但是细节很多。 二分查找的注意点 mid的赋值 循环跳出的条件 左边界left和右边界left的赋值 target" />
+<meta property="og:title" content="查找算法之二分查找" />
+<meta property="og:description" content="顺序查找算法的时间复杂度是On，二分查找算法的时间复杂度是logN，二分查找适用于已经进行递增或者递减排序的数据。对于如[1, 2, 2, 3, 4]这样" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-04-24T23:00:00+00:00" />
 <meta property="article:modified_time" content="2021-04-24T23:00:00+00:00" />
 
-<meta itemprop="name" content="二分查找">
-<meta itemprop="description" content="正文 二分查找是对数级效率，看似简单，但是细节很多。 二分查找的注意点 mid的赋值 循环跳出的条件 左边界left和右边界left的赋值 target"><meta itemprop="datePublished" content="2021-04-24T23:00:00+00:00" />
+<meta itemprop="name" content="查找算法之二分查找">
+<meta itemprop="description" content="顺序查找算法的时间复杂度是On，二分查找算法的时间复杂度是logN，二分查找适用于已经进行递增或者递减排序的数据。对于如[1, 2, 2, 3, 4]这样"><meta itemprop="datePublished" content="2021-04-24T23:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-04-24T23:00:00+00:00" />
-<meta itemprop="wordCount" content="125">
+<meta itemprop="wordCount" content="1171">
 <meta itemprop="keywords" content="算法," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="二分查找"/>
-<meta name="twitter:description" content="正文 二分查找是对数级效率，看似简单，但是细节很多。 二分查找的注意点 mid的赋值 循环跳出的条件 左边界left和右边界left的赋值 target"/>
+<meta name="twitter:title" content="查找算法之二分查找"/>
+<meta name="twitter:description" content="顺序查找算法的时间复杂度是On，二分查找算法的时间复杂度是logN，二分查找适用于已经进行递增或者递减排序的数据。对于如[1, 2, 2, 3, 4]这样"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -292,7 +292,7 @@
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">二分查找</h1>
+      <h1 class="post-title">查找算法之二分查找</h1>
       
       <div class="post-meta">
         <time datetime="2021-04-24" class="post-time">
@@ -302,8 +302,8 @@
             <a href="https://pupti.github.io/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             
           </div>
-        <span class="more-meta"> 约 125 字 </span>
-          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        <span class="more-meta"> 约 1171 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
 
         
         
@@ -320,14 +320,15 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#正文">正文</a>
+    <li><a href="#情况1-找到数组中等于target的元素下标">情况1: 找到数组中等于target的元素下标</a>
       <ul>
-        <li><a href="#一般二分查找">一般二分查找</a></li>
-        <li><a href="#从左侧二分查找">从左侧二分查找</a></li>
-        <li><a href="#从右侧二分查找">从右侧二分查找</a></li>
+        <li><a href="#正确判断循环终止条件">正确判断循环终止条件</a></li>
+        <li><a href="#范围如何收缩确定">范围如何收缩确定</a></li>
+        <li><a href="#是否找到target">是否找到target</a></li>
       </ul>
     </li>
-    <li><a href="#后记">后记</a></li>
+    <li><a href="#情况2-找到数组中第n个target的元素下标数组中有多个target元素">情况2: 找到数组中第n个target的元素下标（数组中有多个target元素）</a></li>
+    <li><a href="#todo">TODO</a></li>
     <li><a href="#参考">参考</a></li>
     <li><a href="#oj">OJ</a></li>
   </ul>
@@ -337,21 +338,87 @@
 
     
     <div class="post-content">
-      <!-- raw HTML omitted -->
-<h2 id="正文">正文</h2>
-<p>二分查找是对数级效率，看似简单，但是细节很多。</p>
-<p>二分查找的注意点</p>
+      <p>顺序查找算法的时间复杂度是On，二分查找算法的时间复杂度是logN，二分查找适用于已经进行递增或者递减排序的数据。对于如[1, 2, 2, 3, 4]这样的数组，使用二分查找，一共有三种情况，分别是：</p>
 <ol>
-<li>mid的赋值</li>
-<li>循环跳出的条件</li>
-<li>左边界left和右边界left的赋值</li>
-<li>target的下标确定</li>
+<li>找到数组等于3的元素下标（数组中没有重复元素）</li>
+<li>找到数组中第一个等于2的元素下标</li>
+<li>找到数组中最后一个等于2的元素下表</li>
 </ol>
-<h3 id="一般二分查找">一般二分查找</h3>
-<p>从有序数组中找到某个值的下表，如果找不到返回 -1</p>
-<h3 id="从左侧二分查找">从左侧二分查找</h3>
-<h3 id="从右侧二分查找">从右侧二分查找</h3>
-<h2 id="后记">后记</h2>
+<h2 id="情况1-找到数组中等于target的元素下标">情况1: 找到数组中等于target的元素下标</h2>
+<p>对于[1, 2, 3, 4]的数组，找到元素2所在下标。使用GO语言</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">//正常二分查找，返回target在num中的下标
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">binarySearch</span><span class="p">(</span><span class="nx">nums</span> <span class="o">*</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+ <span class="nx">len</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="o">*</span><span class="nx">nums</span><span class="p">)</span>
+ <span class="nx">num</span> <span class="o">:=</span> <span class="o">*</span><span class="nx">nums</span>
+
+ <span class="nx">left</span> <span class="o">:=</span> <span class="mi">0</span>
+ <span class="nx">right</span> <span class="o">:=</span> <span class="nx">len</span> <span class="o">-</span> <span class="mi">1</span>
+
+ <span class="k">for</span> <span class="nx">left</span> <span class="o">&lt;=</span> <span class="nx">right</span> <span class="p">{</span> <span class="c1">// 终止条件是 left + 1 = right
+</span><span class="c1"></span>  <span class="nx">mid</span> <span class="o">:=</span> <span class="nx">left</span> <span class="o">+</span> <span class="p">(</span><span class="nx">right</span><span class="o">-</span><span class="nx">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+  <span class="k">if</span> <span class="nx">num</span><span class="p">[</span><span class="nx">mid</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">mid</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">num</span><span class="p">[</span><span class="nx">mid</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">target</span> <span class="p">{</span> <span class="c1">//左边界需要向左
+</span><span class="c1"></span>   <span class="nx">left</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">num</span><span class="p">[</span><span class="nx">mid</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">target</span> <span class="p">{</span> <span class="c1">//右边界需要向右
+</span><span class="c1"></span>   <span class="nx">right</span> <span class="p">=</span> <span class="nx">mid</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1">// 左闭右闭区间，当在[left, right]区间中mid不是时，则分为[left, mid - 1] 和 [mid + 1, right]
+</span><span class="c1"></span>  <span class="p">}</span>
+ <span class="p">}</span>
+
+ <span class="c1">// 判断是否找到
+</span><span class="c1"></span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>该算法需要注意的地方:</p>
+<h3 id="正确判断循环终止条件">正确判断循环终止条件</h3>
+<p>二分查找在开始将数组的头和尾设置成左右标兵，在查找过程中，左右标兵不断的靠近。对于上述数组中，一开始left := 0; right := len - 1，区间为[0, 3]，这就是闭区间，如果一开始left := 0; right := len，区间为[0, 4)， 这就是左闭右开。循环结束的条件是该区间内没有元素。</p>
+<p>对于左闭右闭区间，循环终止的条件是left+1 == right，即左右标兵指向同一个元素。对于一个递增的数组num为[1, 2, 2, 3, 4], 下标区间如[3, 3]说明该区间内还有一个元素num[3]，[4, 3]区间是不合理的</p>
+<p>对于左闭右开区间，循环终止的条件是left == right，即区间内只有一个元素。当下标区间为[2, 3)时，该区间内还有一个元素num[2], 当下标[3, 3)时，该区间内没有元素。</p>
+<p>当使用不同区间方式，对应收缩区间时应该注意，上面的代码已经演示左闭右闭区间下，区间应该怎么收缩，后续的例子会给出非闭区间应该怎么收缩</p>
+<h3 id="范围如何收缩确定">范围如何收缩确定</h3>
+<p>每次确定一个区间后，会选择该区间的中间元素，mid=left + (right-left)/2。根据数组是递增/递减，mid是否大于target，确定是选择左边区间还是右边区间。</p>
+<h3 id="是否找到target">是否找到target</h3>
+<p>循环终止有两种情况:</p>
+<ol>
+<li>找到target元素，直接返回下标</li>
+<li>循环结束后还没有找到target，则认为找不到</li>
+</ol>
+<h2 id="情况2-找到数组中第n个target的元素下标数组中有多个target元素">情况2: 找到数组中第n个target的元素下标（数组中有多个target元素）</h2>
+<p>不同之处在于，找到目标target之后不要立马返回。应该将该元素所在下标作为左/右边界，继续收缩，直到找到第n个target。</p>
+<p>当循环结束时，判断num[left]或者num[right]如果为target，则已经找到，因为如果从循环出来，left等于right；如果不等于则认为没找到，返回-1</p>
+<h2 id="todo">TODO</h2>
+<p>参考博客
+详解二分查找
+对应的OJ题</p>
 <h2 id="参考">参考</h2>
 <p><a href="https://www.cnblogs.com/xjtsh/p/12614374.html">https://www.cnblogs.com/xjtsh/p/12614374.html</a>
 <a href="https://www.cnblogs.com/kyoner/p/11080078.html">https://www.cnblogs.com/kyoner/p/11080078.html</a></p>
@@ -438,23 +505,23 @@
   
 
   <div class="post bg-white">
-      <div id="comments-gitment"></div>
-      <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
-        <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+      <div id="gitment-ctn"></div>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+        <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
       <script type="text/javascript">
-      const gitment = new Gitment({
+      const gitment = new Gitalk({
         id: 'DS-二分查找.markdown',
-        title: '二分查找',
+        title: '查找算法之二分查找',
         link: decodeURI(location.href),
-        desc: '正文 二分查找是对数级效率，看似简单，但是细节很多。 二分查找的注意点 mid的赋值 循环跳出的条件 左边界left和右边界left的赋值 target',
-        owner: 'pupti',
+        desc: '顺序查找算法的时间复杂度是On，二分查找算法的时间复杂度是logN，二分查找适用于已经进行递增或者递减排序的数据。对于如[1, 2, 2, 3, 4]这样',
+        admin: 'pupti',
         repo: 'comments',
-        oauth: {
-          client_id: '4345dcd1534ca66e6cba',
-          client_secret: 'f0cc9639dedcac960b034fdb775616799f790913'
-        }
+        
+        distractionFreeMode: false,  
+        clientID: '4345dcd1534ca66e6cba',
+        clientSecret: 'f0cc9639dedcac960b034fdb775616799f790913'
       })
-      gitment.render('comments-gitment')
+      gitalk.render('comments-gitment')
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
     </div>

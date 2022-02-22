@@ -499,7 +499,7 @@ top
           </a>
         
           <a class="next" href="/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-            <span class="next-text nav-default">二分查找</span>
+            <span class="next-text nav-default">查找算法之二分查找</span>
             <span class="prev-text nav-mobile">下一篇</span>
             
             <i class="iconfont">
@@ -529,23 +529,23 @@ top
   
 
   <div class="post bg-white">
-      <div id="comments-gitment"></div>
-      <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
-        <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+      <div id="gitment-ctn"></div>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+        <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
       <script type="text/javascript">
-      const gitment = new Gitment({
+      const gitment = new Gitalk({
         id: 'Linux-查看机器资源.md',
         title: '查看机器资源',
         link: decodeURI(location.href),
         desc: '查看操作系统版本 1 2 3 4 5 6 7 8 uname -a cat \/proc\/version cat \/etc\/issue cat \/etc\/redhat-release 查看cpu资源 https:\/\/blog.csdn.net\/qq_21386397\/article\/details\/106372255 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 # 查看cpu信息、型号 cat \/proc\/cpuinfo | grep name | cut -f2',
-        owner: 'pupti',
+        admin: 'pupti',
         repo: 'comments',
-        oauth: {
-          client_id: '4345dcd1534ca66e6cba',
-          client_secret: 'f0cc9639dedcac960b034fdb775616799f790913'
-        }
+        
+        distractionFreeMode: false,  
+        clientID: '4345dcd1534ca66e6cba',
+        clientSecret: 'f0cc9639dedcac960b034fdb775616799f790913'
       })
-      gitment.render('comments-gitment')
+      gitalk.render('comments-gitment')
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
     </div>

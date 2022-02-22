@@ -456,23 +456,23 @@
   
 
   <div class="post bg-white">
-      <div id="comments-gitment"></div>
-      <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
-        <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+      <div id="gitment-ctn"></div>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+        <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
       <script type="text/javascript">
-      const gitment = new Gitment({
+      const gitment = new Gitalk({
         id: 'ClickHouse3_存储.md',
         title: 'ClickHouse存储（三）',
         link: decodeURI(location.href),
         desc: '本文主要内容包括 clickhouse数据存储方式 分片和分区 每列单独存储 分区合并 TTL 多磁盘存储策略 JBOD存储策略 HOT\/COLD存储策略 列式存',
-        owner: 'pupti',
+        admin: 'pupti',
         repo: 'comments',
-        oauth: {
-          client_id: '4345dcd1534ca66e6cba',
-          client_secret: 'f0cc9639dedcac960b034fdb775616799f790913'
-        }
+        
+        distractionFreeMode: false,  
+        clientID: '4345dcd1534ca66e6cba',
+        clientSecret: 'f0cc9639dedcac960b034fdb775616799f790913'
       })
-      gitment.render('comments-gitment')
+      gitalk.render('comments-gitment')
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
     </div>

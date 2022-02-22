@@ -6,7 +6,7 @@
     <description>Recent content on Pupti</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 12 Feb 2022 12:50:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Feb 2022 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://pupti.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -23,18 +23,6 @@
 &lt;ol&gt;
 &lt;li&gt;2020 - 2022 某互联网金融公司&lt;/li&gt;
 &lt;/ol&gt;
-</description>
-      
-    </item>
-    
-    <item>
-      <title>golang--cobra包</title>
-      <link>https://pupti.github.io/post/2021/test/</link>
-      <pubDate>Sat, 12 Feb 2022 12:50:00 +0000</pubDate>
-      
-      <guid>https://pupti.github.io/post/2021/test/</guid>
-      
-        <description>&lt;p&gt;cobra包可以实现命令行应用，很多开源工具都在使用，比如：kubernetes、docker、filebeat、Hugo等。&lt;/p&gt;
 </description>
       
     </item>
@@ -633,27 +621,93 @@ top
     </item>
     
     <item>
-      <title>二分查找</title>
+      <title>查找算法之二分查找</title>
       <link>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</link>
       <pubDate>Sat, 24 Apr 2021 23:00:00 +0000</pubDate>
       
       <guid>https://pupti.github.io/post/2021/ds-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</guid>
       
-        <description>&lt;!-- raw HTML omitted --&gt;
-&lt;h2 id=&#34;正文&#34;&gt;正文&lt;/h2&gt;
-&lt;p&gt;二分查找是对数级效率，看似简单，但是细节很多。&lt;/p&gt;
-&lt;p&gt;二分查找的注意点&lt;/p&gt;
+        <description>&lt;p&gt;顺序查找算法的时间复杂度是On，二分查找算法的时间复杂度是logN，二分查找适用于已经进行递增或者递减排序的数据。对于如[1, 2, 2, 3, 4]这样的数组，使用二分查找，一共有三种情况，分别是：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;mid的赋值&lt;/li&gt;
-&lt;li&gt;循环跳出的条件&lt;/li&gt;
-&lt;li&gt;左边界left和右边界left的赋值&lt;/li&gt;
-&lt;li&gt;target的下标确定&lt;/li&gt;
+&lt;li&gt;找到数组等于3的元素下标（数组中没有重复元素）&lt;/li&gt;
+&lt;li&gt;找到数组中第一个等于2的元素下标&lt;/li&gt;
+&lt;li&gt;找到数组中最后一个等于2的元素下表&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;一般二分查找&#34;&gt;一般二分查找&lt;/h3&gt;
-&lt;p&gt;从有序数组中找到某个值的下表，如果找不到返回 -1&lt;/p&gt;
-&lt;h3 id=&#34;从左侧二分查找&#34;&gt;从左侧二分查找&lt;/h3&gt;
-&lt;h3 id=&#34;从右侧二分查找&#34;&gt;从右侧二分查找&lt;/h3&gt;
-&lt;h2 id=&#34;后记&#34;&gt;后记&lt;/h2&gt;
+&lt;h2 id=&#34;情况1-找到数组中等于target的元素下标&#34;&gt;情况1: 找到数组中等于target的元素下标&lt;/h2&gt;
+&lt;p&gt;对于[1, 2, 3, 4]的数组，找到元素2所在下标。使用GO语言&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//正常二分查找，返回target在num中的下标
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;binarySearch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+ &lt;span class=&#34;nx&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+ &lt;span class=&#34;nx&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;nums&lt;/span&gt;
+
+ &lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+ &lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+
+ &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 终止条件是 left + 1 = right
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;mid&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;mid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+   &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;mid&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;mid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//左边界需要向左
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;   &lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;mid&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;mid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//右边界需要向右
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;   &lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;mid&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 左闭右闭区间，当在[left, right]区间中mid不是时，则分为[left, mid - 1] 和 [mid + 1, right]
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+ &lt;span class=&#34;c1&#34;&gt;// 判断是否找到
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;该算法需要注意的地方:&lt;/p&gt;
+&lt;h3 id=&#34;正确判断循环终止条件&#34;&gt;正确判断循环终止条件&lt;/h3&gt;
+&lt;p&gt;二分查找在开始将数组的头和尾设置成左右标兵，在查找过程中，左右标兵不断的靠近。对于上述数组中，一开始left := 0; right := len - 1，区间为[0, 3]，这就是闭区间，如果一开始left := 0; right := len，区间为[0, 4)， 这就是左闭右开。循环结束的条件是该区间内没有元素。&lt;/p&gt;
+&lt;p&gt;对于左闭右闭区间，循环终止的条件是left+1 == right，即左右标兵指向同一个元素。对于一个递增的数组num为[1, 2, 2, 3, 4], 下标区间如[3, 3]说明该区间内还有一个元素num[3]，[4, 3]区间是不合理的&lt;/p&gt;
+&lt;p&gt;对于左闭右开区间，循环终止的条件是left == right，即区间内只有一个元素。当下标区间为[2, 3)时，该区间内还有一个元素num[2], 当下标[3, 3)时，该区间内没有元素。&lt;/p&gt;
+&lt;p&gt;当使用不同区间方式，对应收缩区间时应该注意，上面的代码已经演示左闭右闭区间下，区间应该怎么收缩，后续的例子会给出非闭区间应该怎么收缩&lt;/p&gt;
+&lt;h3 id=&#34;范围如何收缩确定&#34;&gt;范围如何收缩确定&lt;/h3&gt;
+&lt;p&gt;每次确定一个区间后，会选择该区间的中间元素，mid=left + (right-left)/2。根据数组是递增/递减，mid是否大于target，确定是选择左边区间还是右边区间。&lt;/p&gt;
+&lt;h3 id=&#34;是否找到target&#34;&gt;是否找到target&lt;/h3&gt;
+&lt;p&gt;循环终止有两种情况:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;找到target元素，直接返回下标&lt;/li&gt;
+&lt;li&gt;循环结束后还没有找到target，则认为找不到&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;情况2-找到数组中第n个target的元素下标数组中有多个target元素&#34;&gt;情况2: 找到数组中第n个target的元素下标（数组中有多个target元素）&lt;/h2&gt;
+&lt;p&gt;不同之处在于，找到目标target之后不要立马返回。应该将该元素所在下标作为左/右边界，继续收缩，直到找到第n个target。&lt;/p&gt;
+&lt;p&gt;当循环结束时，判断num[left]或者num[right]如果为target，则已经找到，因为如果从循环出来，left等于right；如果不等于则认为没找到，返回-1&lt;/p&gt;
+&lt;h2 id=&#34;todo&#34;&gt;TODO&lt;/h2&gt;
+&lt;p&gt;参考博客
+详解二分查找
+对应的OJ题&lt;/p&gt;
 &lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/xjtsh/p/12614374.html&#34;&gt;https://www.cnblogs.com/xjtsh/p/12614374.html&lt;/a&gt;
 &lt;a href=&#34;https://www.cnblogs.com/kyoner/p/11080078.html&#34;&gt;https://www.cnblogs.com/kyoner/p/11080078.html&lt;/a&gt;&lt;/p&gt;
